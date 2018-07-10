@@ -1,0 +1,12 @@
+#+TITLE: Blackjack
+#+AUTHOR: Lucas Vieira <lucasvieira@lisp.com.br>
+#+DESCRIPTION: Blackjack implementation in HTML5 using Materialize.
+
+* To-do
+
+Still lacks documentation. Coming soon.
+
+* License
+
+This project is licensed under the MIT License.
+

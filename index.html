@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Blackjack</title>
+
+    <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="css/main.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    
+  </head>
+  
+  <body>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container">
+	<a class="center">Blackjack</a>
+      </div>
+    </nav>
+    <h1 id="thing" class="header center orange-text">Blackjack</h1>
+
+    <!-- Card test -->
+    <div class="container">
+      <div id='cards-holder' class="row">
+	
+	  <div class="blackjack-card col s1 m2">
+	    <div class="card bj-card hoverable">
+              <div class="card-image">
+		<img src="images/card-back.png">
+              </div>
+              <!-- <div class="card-content"></div> -->
+	    </div>
+	  </div>
+
+	<!-- more cards  -->
+      </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fixed-action-btn" id="new-card-btn">
+      <a class="btn-floating btn-large red">
+	<i class="large material-icons">+</i>
+      </a>
+      <ul>
+	<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+	<li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+	<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+	<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+      </ul>
+    </div>
+
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+  
+</html>
