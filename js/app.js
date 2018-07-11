@@ -1,4 +1,10 @@
-// Blackjack
+/*
+ * Blackjack
+ * Copyright (c) 2018 Lucas Vieira <lucasvieira@lisp.com.br>
+ *
+ * This project is distributed under the MIT License. See
+ * LICENSE for details. 
+*/
 
 // Deck definitions, generated programmatically
 const generateDeck = () => {
