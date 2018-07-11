@@ -12,16 +12,16 @@
 
 // The deck is actually instanced on the entry point.
 // It is an array of objects, each being a card, which
-// contain its suit and its number
+// contains its suit and its number
 let deck = [];
 
-// The player's hands are contained inside an array.
-// Each is also an array of cards retrieved from the
-// deck.
+// The players' hands are contained inside an array.
+// Each hand is also an array of cards retrieved from
+// the deck.
 let playerHands = [ [], [], [], [] ];
 
 // Simple switch for preventing the player from taking
-// cards outside of his/her trun
+// cards outside of his/her turn
 let myTurn = false;
 
 
@@ -38,19 +38,14 @@ let myTurn = false;
 const generateDeck = () => {
     let suits = ["spades", "hearts", "diamonds", "clubs"];
     let cards = [];
-    // Cards range from 1-13, where
-    //  1 = ace
-    // 11 = jack
-    // 12 = queen
-    // 13 = king
-    // HOWEVER, any card > 10 is counted as a 10.
-    // The game uses a single deck, so all we need to do is
-    // generate the 52 cards.
+
+    // Generate 13 cards per suit
     suits.forEach(suit => {
 	for(i = 1; i <= 13; i++) {
+	    // Generation of each card object
 	    cards.push({
 		suit:   suit,
-		number: i
+		number:    i
 	    });
 	}
     });
@@ -71,21 +66,30 @@ const shuffleDeck = deck => {
 };
 
 // Creates a new card to be emplaced in HTML.
-// Does not directly relate to the dec structure.
-// cardType must be the card name, composed of the two
-// first characters of the suit, and then the card number.
-// e.g. cl1 is an Ace of Clubs, sp10 is a Ten of Spades.
+// Does not directly relate to the deck structure.
+// cardType must be the card name with special formatting,
+// composed of the two first characters of the suit, and
+// then the card number. If the name is not provided, then
+// a turned card will be rendered.
+// e.g. "cl1" is an Ace of Clubs, "sp10" is a Ten of Spades.
 const createCard = (cardType) => {
-	let cardElement = $(document.createElement("div"));
-	cardElement.load('card.html', () => {
-	    if(cardType != undefined) {
-		cardElement.find('#card-image')
-			   .attr('src',
-				 'images/deck/' + cardType + '.png');
-	    }
-	});
-	return cardElement;
-    };
+    // Force coercion from document element to jQuery object.
+    // Unfortunately, using a jQuery object directly was being
+    // problematic.
+    let cardElement = $(document.createElement("div"));
+
+    // Load external predefined card layout
+    cardElement.load('card.html', () => {
+	if(cardType != undefined) {
+	    // Deduce name of card file directly from given
+	    // cardType, then define its image source path.
+	    cardElement.find('#card-image')
+		       .attr('src',
+			     'images/deck/' + cardType + '.png');
+	}
+    });
+    return cardElement;
+};
 
 
 
@@ -96,6 +100,10 @@ const createCard = (cardType) => {
 // Player index must be in range 0-3, where 3
 // is the actual player and the others are "AI"
 const playerSum = which => {
+    // Loops cryptic, but it is nothing more than
+    // performing a map operation over a bunch
+    // of numbers, and then calculating the sum
+    // of said numbers.
     return playerHands[which].map(card => {
 	return (card.number > 10 ? 10 : card.number);
     }).reduce((acc, val) => acc + val, 0);
@@ -107,14 +115,19 @@ const playerSum = which => {
 // column it should appear.
 // Player index is determined as in playerSum.
 const grabNewCard = whichPlayer => {
+    // Grab a card from top of deck.
+    // Assumes a shuffled deck.
     let newCard = deck.pop();
+    // Deduce current player's container.
+    // The "AI" containers are named against the
+    // pattern "comX-cards". Player's container
+    // is exclusive
     let playerContainer = "\#" +
 	 ((whichPlayer === 3) ? "player-cards" : "com" + whichPlayer + "-cards");
-    
-    playerHands[whichPlayer].push(newCard);
-    console.log(playerContainer);
 
-    
+    // Add card to player's hand
+    playerHands[whichPlayer].push(newCard);
+    // Emplace new HTML element on player's container
     $(playerContainer).append(
 	createCard(newCard.suit.substring(0,2)
 		 + newCard.number));
@@ -128,7 +141,6 @@ const grabNewCard = whichPlayer => {
 const computerTurn = which => {
     let sum = playerSum(which);
     while(sum < 18) {
-	// Grab a new card
 	grabNewCard(which);
 	sum = playerSum(which);
     }
@@ -138,12 +150,15 @@ const computerTurn = which => {
 // them on an alert box.
 // After the scores are presented, reload the
 // webpage.
+// TODO: Show winning status.
 const debriefing = () => {
+    // Generate an array of final scores
     let finalScores =
 	[0, 1, 2, 3].map(which => playerSum(which));
+
+    // Build debriefing string
     let debriefing =
 	"Final scores:\n";
-
     for(i = 0; i <= 3; i++) {
 	let playerName =
 	    (i == 3) ? "You" : ("Player " + i);
@@ -151,6 +166,8 @@ const debriefing = () => {
 	debriefing += ": " + finalScores[i];
 	if(i < 3) debriefing += "\n";
     }
+
+    // Show debriefing, then reload page
     alert(debriefing);
     location.reload();
 };
