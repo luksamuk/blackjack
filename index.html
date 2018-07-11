@@ -20,18 +20,51 @@
 
     <!-- Card test -->
     <div class="container">
-      <div id='cards-holder' class="row">
+      <div class='row'>
+	<div id='com0-cards' class='col s1 m1'>
+	  <p class='center'>Player 0</p>
+	</div>
 	
-	  <div class="blackjack-card col s1 m2">
-	    <div class="card bj-card hoverable">
-              <div class="card-image">
-		<img src="images/card-back.png">
-              </div>
-              <!-- <div class="card-content"></div> -->
+	<div class='col s1 m1'></div>
+	
+	<div id='com1-cards' class='col s1 m1'>
+	  <p class='center'>Player 1</p>
+	</div>
+
+	<div class='col s1 m1'></div>
+	
+	<div id='com2-cards' class='col s1 m1'>
+	  <p class='center'>Player 2</p>
+	</div>
+
+	<div class='col s1 m1'></div>
+	
+	<div class='col s5 m5'>
+	  <div class='col s4 m4'></div>
+	  <div id='player-cards' class='col s3 m3'>
+	    <p class='center'>You</p>
+	    <p id='player-score' class='center'>Score: 0</p>
+	  </div>
+	  <div class='col s4 m4'></div>
+	</div>
+	
+	
+	<div class='col s1 m1'>
+	  
+	  <p class='center'>Deck</p>
+	  
+	  <div id='deck' class="blackjack-card">
+	    <div class="card bj-card hoverable waves-effect waves-light">
+	      <div class="card-image">
+		<img src="images/deck/back.png" id="card-image">
+	      </div>
 	    </div>
 	  </div>
 
-	<!-- more cards  -->
+	  <a id="end-turn-button" class="center waves-effect waves-light btn">end turn</a>
+	  
+	</div>
+
       </div>
     </div>
 
