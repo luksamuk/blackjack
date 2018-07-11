@@ -146,6 +146,55 @@ const computerTurn = which => {
     }
 };
 
+// Checks whether a player won the game.
+// This function can have three return types:
+// 1. undefined, if no player won;
+// 2. an array, if more than one player finished
+//    with the highest score;
+// 3. a single number containing the winner's ID.
+const checkWinner = scores => {
+    // Assume Player 1 as a winner
+    let winner = {
+	player: 0,
+	diff:   21 - scores[0]
+    };
+
+    // Check to see if other players won.
+    // When number is <= 21, we have a win
+    for(i = 1; i <= 3; i++) {
+	let diff = 21 - scores[i];
+	if((winner.diff < 0 && diff >= 0) ||
+	    (diff >= 0 && diff < winner.diff)) {
+	    winner.player = i;
+	    winner.diff   = diff;
+	}
+    }
+
+    // Ignore if we have no winners
+    if(winner.diff < 0) { return; }
+
+    // Now check for players with the same score.
+    let draws = [];
+    if(scores.length !== new Set(scores).size) {
+	// We got repeated numbers, so we find
+	// the draw.
+	for(i = 0; i <= 3; i++) {
+	    if(21 - scores[i] === winner.diff) {
+		draws.push(i);
+	    }
+	}
+    }
+
+    // If we have more than one winner, then
+    // return an array with the winners' indexes
+    if(draws.length > 1) {
+	return draws;
+    }
+
+    // Otherwise return the winner's index
+    return winner.player;
+};
+
 // Calculate scores for all players and show
 // them on an alert box.
 // After the scores are presented, reload the
@@ -156,6 +205,8 @@ const debriefing = () => {
     let finalScores =
 	[0, 1, 2, 3].map(which => playerSum(which));
 
+    let winner = checkWinner(finalScores);
+
     // Build debriefing string
     let debriefing =
 	"Final scores:\n";
@@ -164,7 +215,29 @@ const debriefing = () => {
 	    (i == 3) ? "You" : ("Player " + (i + 1));
 	debriefing += playerName;
 	debriefing += ": " + finalScores[i];
-	if(i < 3) debriefing += "\n";
+	debriefing += "\n";
+    }
+    debriefing += "\n";
+
+    // The following is related to building a string
+    // stating the winner.
+    if(winner === undefined) { // Nobody won
+	debriefing += "Nobody won!";
+    } else if(winner instanceof Array) { // There is a draw
+	let winnerNames =
+	    winner.map(index => index === 3 ? "You" : ("Player " + (index + 1)));
+	debriefing += "Draw between ";
+	for(i = 0; i < winnerNames.length; i++) {
+	    debriefing += winnerNames[i];
+	    if(i !== winnerNames.length - 1) {
+		debriefing += " and ";
+	    } else {
+		debriefing += "!";
+	    }
+	}
+    } else { // There is only a single winner
+	debriefing += (winner === 3) ? "You" : "Player " + (winner + 1);
+	debriefing += " won!";
     }
 
     // Show debriefing, then reload page
