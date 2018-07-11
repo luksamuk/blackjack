@@ -19,76 +19,92 @@
   </head>
   
   <body>
-    <nav class="light-blue lighten-1" role="navigation">
-      <div class="nav-wrapper container">
-	<a class="center">Blackjack</a>
-      </div>
-    </nav>
-    <h1 id="thing" class="header center orange-text">Blackjack</h1>
-
-    <!-- Card test -->
-    <div class="container">
-      <div class='row'>
-	<div id='com0-cards' class='col s1 m1'>
-	  <p class='center'>Player 0</p>
+    
+    <header>
+      <!-- Navbar -->
+      <nav class="black lighten-1" role="navigation">
+	<div class="nav-wrapper container">
+	  <a>Blackjack</a>
 	</div>
-	
-	<div class='col s1 m1'></div>
-	
-	<div id='com1-cards' class='col s1 m1'>
-	  <p class='center'>Player 1</p>
-	</div>
+      </nav>
+      <!-- Title -->
+      <h1 class="header center orange-text">Blackjack</h1>
+    </header>
 
-	<div class='col s1 m1'></div>
-	
-	<div id='com2-cards' class='col s1 m1'>
-	  <p class='center'>Player 2</p>
-	</div>
+    <!-- Actual "play area" -->
+    <main>
+      <div class="container">
+	<!-- The cards are disposed in columns, including the deck.
+	     This was not the original idea, but it ended up looking nice -->
+	<div class='row'>
 
-	<div class='col s1 m1'></div>
-	
-	<div class='col s5 m5'>
-	  <div class='col s4 m4'></div>
-	  <div id='player-cards' class='col s3 m3'>
-	    <p class='center'>You</p>
-	    <p id='player-score' class='center'>Score: 0</p>
+	  <!-- Cards container for Player 1 (Computer) -->
+	  <div id='com0-cards' class='col s1 m1'>
+	    <p>Player 1</p>
 	  </div>
-	  <div class='col s4 m4'></div>
-	</div>
-	
-	
-	<div class='col s1 m1'>
+	  <!-- Separator -->
+	  <div class='col s1 m1'></div>
+
+	  <!-- Cards container for Player 2 (Computer) -->
+	  <div id='com1-cards' class='col s1 m1'>
+	    <p>Player 2</p>
+	  </div>
+	  <!-- Separator -->
+	  <div class='col s1 m1'></div>
+
+	  <!-- Cards container for Player 3 (Computer) -->
+	  <div id='com2-cards' class='col s1 m1'>
+	    <p>Player 3</p>
+	  </div>
+	  <!-- Separator -->
+	  <div class='col s1 m1'></div>
+
+	  <!-- Cards container for Player 4 (Actual player) -->
+	  <div class='col s4 m4'>
+	    <!-- Separator -->
+	    <div class='col s4 m4'></div>
+	    <!-- Actual container -->
+	    <div id='player-cards' class='col s3 m3'>
+	      <p>You</p>
+	      <p id='player-score'>Score: 0</p>
+	    </div>
+	    <!-- Separator -->
+	    <div class='col s4 m4'></div>
+	  </div>
 	  
-	  <p class='center'>Deck</p>
-	  
-	  <div id='deck' class="blackjack-card">
-	    <div class="card bj-card hoverable waves-effect waves-light">
-	      <div class="card-image">
-		<img src="images/deck/back.png" id="card-image">
+	  <!-- Container for deck -->
+	  <div class='col s2 m2'>
+	    
+	    <p>Deck</p>
+
+	    <!-- Clickable, hoverable deck. -->
+	    <div id='deck' class="blackjack-card">
+	      <div class="card hoverable waves-effect waves-light">
+		<div class="card-image">
+		  <img src="images/deck/back.png" id="card-image">
+		</div>
 	      </div>
 	    </div>
+
+	    <!-- End-of-turn button -->
+	    <a id="end-turn-button" class="waves-effect waves-light btn">END</a>
+	    
 	  </div>
 
-	  <a id="end-turn-button" class="center waves-effect waves-light btn" type="submit">END</a>
-	  
 	</div>
-
       </div>
-    </div>
+    </main>
 
-    <!-- Floating Action Button -->
-    <div class="fixed-action-btn" id="new-card-btn">
-      <a class="btn-floating btn-large red">
-	<i class="large material-icons">+</i>
-      </a>
-      <ul>
-	<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-	<li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-	<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-	<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-      </ul>
-    </div>
+    <!-- Footer -->
+    <!-- <footer class='page-footer'>
+	 <div class='footer-copyright'>
+	 <div class='container'>
+	 © 2018 Lucas Vieira
+	 </div>
+	 </div>
+	 </footer> -->
 
+    <!-- Scripts -->
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>

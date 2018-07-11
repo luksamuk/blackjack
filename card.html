@@ -6,9 +6,13 @@
      LICENSE for details.
 -->
 
+<!-- Template for generic playing card. -->
 <div class="blackjack-card">
-  <div class="card bj-card hoverable">
+  <div class="card hoverable">
     <div class="card-image">
+      <!-- Leads to a repeated ID, however it is necessary
+	   for image swapping when creating an HTML element
+	   dynamically. Should never be used globally! -->
       <img src="images/deck/back.png" id="card-image">
     </div>
     <!-- <div class="card-content"></div> -->

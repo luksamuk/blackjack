@@ -72,7 +72,7 @@ const shuffleDeck = deck => {
 // then the card number. If the name is not provided, then
 // a turned card will be rendered.
 // e.g. "cl1" is an Ace of Clubs, "sp10" is a Ten of Spades.
-const createCard = (cardType) => {
+const createCard = cardType => {
     // Force coercion from document element to jQuery object.
     // Unfortunately, using a jQuery object directly was being
     // problematic.
@@ -161,7 +161,7 @@ const debriefing = () => {
 	"Final scores:\n";
     for(i = 0; i <= 3; i++) {
 	let playerName =
-	    (i == 3) ? "You" : ("Player " + i);
+	    (i == 3) ? "You" : ("Player " + (i + 1));
 	debriefing += playerName;
 	debriefing += ": " + finalScores[i];
 	if(i < 3) debriefing += "\n";
@@ -185,10 +185,9 @@ $(document).ready(e => {
 
     // Distribute some cards to players.
     // Each player starts with two cards
-    for(i = 0; i < 2; i++) {
-	for(j = 0; j <= 3; j++) {
-	    grabNewCard(j);
-	}
+    for(i = 0; i <= 3; i++) {
+	grabNewCard(i);
+	grabNewCard(i);
     }
 
     // Show player score
