@@ -4,9 +4,37 @@
  *
  * This project is distributed under the MIT License. See
  * LICENSE for details. 
-*/
+ */
 
-// Deck definitions, generated programmatically
+
+/* ========================= */
+/*       GLOBAL OBJECTS      */
+
+// The deck is actually instanced on the entry point.
+// It is an array of objects, each being a card, which
+// contain its suit and its number
+let deck = [];
+
+// The player's hands are contained inside an array.
+// Each is also an array of cards retrieved from the
+// deck.
+let playerHands = [ [], [], [], [] ];
+
+// Simple switch for preventing the player from taking
+// cards outside of his/her trun
+let myTurn = false;
+
+
+
+/* ========================= */
+/*   DECK-RELATED FUNCTIONS  */
+
+// Creates a new deck and returns it.
+// The deck is comprised of 52 different cards, grouped
+// under four suits. Each suit has 13 cards, numbered in
+// that order. 1 is always ace, and 11, 12, 13 are royal
+// family. However, in blackjack, all royal family members
+// are valued 10.
 const generateDeck = () => {
     let suits = ["spades", "hearts", "diamonds", "clubs"];
     let cards = [];
@@ -15,7 +43,7 @@ const generateDeck = () => {
     // 11 = jack
     // 12 = queen
     // 13 = king
-    // HOWEVER, any card > 13 is counted as a 10.
+    // HOWEVER, any card > 10 is counted as a 10.
     // The game uses a single deck, so all we need to do is
     // generate the 52 cards.
     suits.forEach(suit => {
@@ -29,8 +57,9 @@ const generateDeck = () => {
     return cards;
 };
 
+// Shuffles a given deck.
+// Uses the Fisher-Yates shuffling algorithm.
 const shuffleDeck = deck => {
-    // Use Fisher-Yates shuffling algorithm
     let numberOfShuffles = deck.length;
     while(numberOfShuffles > 0) {
 	const cardIndex = Math.floor(Math.random() * numberOfShuffles);
@@ -41,15 +70,11 @@ const shuffleDeck = deck => {
     }
 };
 
-let deck = {};
-
-let playerHands = [
-    [],
-    [],
-    [],
-    []
-];
-
+// Creates a new card to be emplaced in HTML.
+// Does not directly relate to the dec structure.
+// cardType must be the card name, composed of the two
+// first characters of the suit, and then the card number.
+// e.g. cl1 is an Ace of Clubs, sp10 is a Ten of Spades.
 const createCard = (cardType) => {
 	let cardElement = $(document.createElement("div"));
 	cardElement.load('card.html', () => {
@@ -62,12 +87,25 @@ const createCard = (cardType) => {
 	return cardElement;
     };
 
+
+
+/* ========================= */
+/* PLAYER-RELATED FUNCTIONS  */
+
+// Sums the score for a specific player.
+// Player index must be in range 0-3, where 3
+// is the actual player and the others are "AI"
 const playerSum = which => {
     return playerHands[which].map(card => {
 	return (card.number > 10 ? 10 : card.number);
     }).reduce((acc, val) => acc + val, 0);
 };
 
+// Grabs a new card for a given player.
+// This function also takes care of emplacing a
+// visual representation for that card on whatever
+// column it should appear.
+// Player index is determined as in playerSum.
 const grabNewCard = whichPlayer => {
     let newCard = deck.pop();
     let playerContainer = "\#" +
@@ -82,20 +120,24 @@ const grabNewCard = whichPlayer => {
 		 + newCard.number));
 };
 
+// Performs an automated turn for an unplayable
+// player, indicated by index.
+// Also performs a very simple logic for buying
+// new cards: if said player is three points from
+// 21, then don't take any more risks.
 const computerTurn = which => {
     let sum = playerSum(which);
-
-    // Simple AI. Will not risk if greater or equal 18
     while(sum < 18) {
 	// Grab a new card
 	grabNewCard(which);
 	sum = playerSum(which);
-
-	// TODO: delay?
     }
 };
 
-
+// Calculate scores for all players and show
+// them on an alert box.
+// After the scores are presented, reload the
+// webpage.
 const debriefing = () => {
     let finalScores =
 	[0, 1, 2, 3].map(which => playerSum(which));
@@ -114,50 +156,49 @@ const debriefing = () => {
 };
 
 
+/* ========================= */
+/*      GAME ENTRY-POINT     */
+
+// Await jQuery's availability
 $(document).ready(e => {
-    console.log("jQuery is ready");
-    /*window.setTimeout(() => {
-	$('#thing').hide(250, () => {
-	    $('#thing').show(250);
-	});
-       }, 2000);*/
-
-    /* Card creation test */
-
-
+    
     // Prepare deck
     deck = generateDeck();
     shuffleDeck(deck);
 
-    // Distribute some cards to players
+    // Distribute some cards to players.
+    // Each player starts with two cards
     for(i = 0; i < 2; i++) {
 	for(j = 0; j <= 3; j++) {
 	    grabNewCard(j);
 	}
     }
 
-    console.log(playerHands);
-
-
+    // Show player score
     $('#player-score').text("Score: " + playerSum(3));
 
 
-    // Make AI play
-    let myTurn = false;
+    // Computer-controlled players perform
+    // their plays first
     for(i = 0; i < 3; i++) {
 	computerTurn(i);
     }
+    
+    // Now it's the player's turn
     myTurn = true;
 
     
-
+    // Callback for clicking the deck.
+    // Lets the player grab one more card. If the player's
+    // score is equal or beyond 21, then just debrief.
     $('#deck').click(function(e) {
 	e.preventDefault();
-	if(!myTurn) return;
+	if(!myTurn) { return; }
 
 	// Check score
 	let playerScore = playerSum(3);
 
+	// Debrief if game is over
 	if(playerScore >= 21) {
 	    debriefing();
 	    return;
@@ -170,8 +211,13 @@ $(document).ready(e => {
 	$('#player-score').text("Score: " + playerScore);
     });
 
+    // Callback for end-turn button.
+    // The player can press the button anytime
+    // to end his turn, whenever he feels he cannot take
+    // any more risks.
     $('#end-turn-button').click(function(e) {
 	e.preventDefault();
+	if(!myTurn) { return; }
 	debriefing();
     });
 });
