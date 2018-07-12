@@ -18,6 +18,8 @@ Basta clonar este repositório na pasta =htdocs= da sua instalação do XAMPP e 
 (por exemplo, https://localhost/blackjack), ou executar a ferramenta =lite-server=, que pode ser obtida
 através do gerenciador de pacotes =npm=, de dentro do diretório clonado.
 
+O repositório deste projeto pode ser encontrado em https://bitbucket.org/luksamuk/blackjack.
+
 * Como Jogar
 
 O jogo possui quatro jogadores, dentre os quais os três primeiros são controlados por máquina, e o quarto é humano,
