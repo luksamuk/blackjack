@@ -1,11 +1,56 @@
 #+TITLE: Blackjack
 #+AUTHOR: Lucas Vieira <lucasvieira@lisp.com.br>
-#+DESCRIPTION: Blackjack implementation in HTML5 using Materialize.
+#+DESCRIPTION: Implementação de Blackjack em HTML5 utilizando Materialize.
+#+OPTIONS: toc:nil
+#+LANGUAGE: bt-br
 
-* To-do
+* Sobre o jogo
 
-Still lacks documentation. Coming soon.
+O objetivo deste jogo é replicar o famoso jogo de cartas Blackjack, utilizando o framework Materialize
+e a biblioteca jQuery, com o intuito de estudo de desenvolvimento front-end para Web.
 
-* License
+* Instalação
 
-This project is licensed under the MIT License. See LICENSE for details.
+O jogo foi criado de forma a ser contido apenas nos arquivos deste repositório, não necessitando da instalação de
+nenhum recurso externo em si, exceto por alguma aplicação para hospedá-lo.
+
+Basta clonar este repositório na pasta =htdocs= da sua instalação do XAMPP e acessar o diretório do jogo
+(por exemplo, https://localhost/blackjack), ou executar a ferramenta =lite-server=, que pode ser obtida
+através do gerenciador de pacotes =npm=, de dentro do diretório clonado.
+
+* Como Jogar
+
+O jogo possui quatro jogadores, dentre os quais os três primeiros são controlados por máquina, e o quarto é humano,
+sendo controlado pelo usuário. A pontuação de cada jogador é computada através da soma dos valores numéricos de suas
+cartas. As cartas possuem o valor escrito nas mesmas, com exceção do Às, que vale 1, e das cartas de Família Real,
+que valem 10 cada.
+
+No início, cada jogador recebe duas cartas. O jogo, então, automaticamente realiza as jogadas dos três primeiros
+jogadores (controlados pela máquina), que avaliam se querem comprar mais cartas e o fazem, cada um em sua vez.
+
+Na vez do quarto jogador, o usuário poderá comprar cartas para tentar chegar o mais próximo possível da pontuação de
+21 pontos (mas não além desta pontuação). Para isso, o usuário deverá clicar no baralho (a carta com face virada para
+baixo) para comprar uma nova carta.
+
+Caso o usuário desconfie que a compra de uma nova carta poderá ultrapassar o valor de 21 pontos, ele poderá apertar o
+botão =END=, que fica sob o baralho. Isto fará com que passe a vez.
+
+Se o usuário tentar obter mais uma carta após ter uma pontuação igual ou superior a 21, seu turno será encerrado, e
+ele passará automaticamente a sua vez.
+
+Ganham os jogadores que chegarem mais próximos, em sua pontuação, do número 21. Jogadores que ultrapassarem esta
+pontuação perderão automaticamente. Dependendo da situação, poderá haver mais de um ou nenhum ganhador. 
+
+* Recursos visuais
+
+As imagens das cartas foram retiradas de http://www.luckyladygames.com/casino-blog/video-poker/video-poker-strategy/cards/,
+que as extraiu primeiramente do website [[https://www.videopoker.com/][Video Poker]], serviço de jogos de Poker online.
+As cartas foram recortadas com o auxílio da ferramenta =ImageMagick= e então renomeadas para acesso programático.
+
+A intenção deste trabalho não é infringir nenhuma lei ou copyright, sendo assim, deixo aqui claro que o uso destas
+imagens tem o único propósito de estudo.
+
+* Licenciamento
+
+O código deste projeto (excluindo o framework Materialize, a biblioteca jQuery e os arquivos de imagem) é distribuido
+sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.

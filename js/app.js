@@ -208,7 +208,7 @@ const debriefing = () => {
 
     // Build debriefing string
     let debriefing =
-	"Final scores:\n";
+	"Game Over!\n\n";
     for(i = 0; i <= 3; i++) {
 	let playerName =
 	    (i == 3) ? "You" : ("Player " + (i + 1));

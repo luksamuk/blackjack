@@ -1,0 +1,105 @@
+\documentclass[
+  article,
+  12pt,
+  openany,
+  oneside,
+  a4paper,
+  chapter=TITLE,
+  hyphens,
+  english,
+  brazil,
+  sumario=tradicional
+]{abntex2}
+
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{microtype}
+\usepackage{titlesec}
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf,abnt-emphasize=bf,abnt-etal-cite=3]{abntex2cite}
+\usepackage{indentfirst}
+\setcounter{chapter}{1}
+
+\usepackage{lipsum}
+
+% Citações
+%\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+%\renewcommand{\backref}{}
+%\renewcommand*{\backrefalt}[4]{}
+%  \ifcase #1 %
+%  Nenhuma citação no texto.%
+%  \or
+%  Citado na página #2.%
+%  \else
+%  Citado #1 vezes nas páginas #2.%
+%  \fi}%
+ 
+% Espaçamentos em geral
+\setlength{\parindent}{1.5cm}
+%\setlength{\parskip}{0.2cm}
+%\onelineskip
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{2.5cm}{2.5cm}{*}
+\checkandfixthelayout
+
+% Metadados do documento
+\titulo{Trabalho Final de Treinamento\\BlackJack}
+\autor{Lucas Samuel Vieira}
+\local{Diamantina}
+\data{2018}
+%\instituicao{NextStep}
+\tipotrabalho{Instruções}
+\preambulo{Instruções do trabalho final de treinamento da NextStep.}
+
+\definecolor{blue}{RGB}{41,5,195}
+\makeatletter
+\hypersetup{
+  %pagebackref=true,
+  pdftitle={\@title},
+  pdfauthor={\@author},
+  pdfsubject={Instruções do trabalho final de treinamento da NextStep.},
+  pdfcreator={LaTeX with abnTeX2},
+%  pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico},
+  colorlinks=true,                % false: boxed links; true: colored links
+  linkcolor=black,                 % color of internal links
+  citecolor=black,                 % color of links to bibliography
+  filecolor=black,                      % color of file links
+  urlcolor=black,
+  bookmarksdepth=4
+}
+\makeatother
+
+
+\makeindex
+
+
+
+\begin{document}
+\OnehalfSpacing
+\pretextual
+%\maketitle
+
+\imprimirfolhaderosto
+
+\textual
+
+\section{Regras do Jogo}
+
+O jogo a ser implementado será o jogo de cartas Blackjack, também conhecido como Vinte-e-um, que consiste em utilizar-se da sorte para vencer.
+
+Podem participar do jogo de duas a sete pessoas, e vence o jogador que, ao somar os valores das cartas que possui, chegar mais próximo do número 21, mas sem ultrapassá-lo. O jogador que ultrapassar o número perde e, caso dois ou mais jogadores terminem a partida com o exato valor de soma, estes deverão efetuar uma rodada de desempate.
+
+Ao início de cada rodada, cada jogador recebe duas cartas, e poderá opcionalmente pedir à banca que lhe dê mais uma carta, até que possua uma soma satisfatória, ou até que a soma passe do número vinte-e-um. Quando todos os jogadores estiverem satisfeitos, as cartas são todas abaixadas, e os jogadores, então, saberão se algum deles venceu, ou se deverá ser feita uma rodada de desempate.
+
+\section{Detalhes Planejados de Implementação}
+
+\begin{itemize}
+\item O jogo será implementado utilizando o framework CSS Materialize;
+\item A versão eletrônica do jogo suportará apenas um jogador, e mais três jogadores controlados por IA;
+\item O jogador não poderá ver diretamente as cartas dos outros jogadores, a não ser ao fim da partida;
+\item Cartas categorizadas como ``família real'' (valetes, damas, reis) serão contabilizados com o valor 10.
+\end{itemize}
+
+\end{document}
