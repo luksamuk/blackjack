@@ -4,11 +4,12 @@
  *
  * This project is distributed under the MIT License. See
  * LICENSE for details. 
- */
+*/
 
 
 /* ========================= */
 /*       GLOBAL OBJECTS      */
+/* ========================= */
 
 // The deck is actually instanced on the entry point.
 // It is an array of objects, each being a card, which
@@ -28,6 +29,7 @@ let myTurn = false;
 
 /* ========================= */
 /*   DECK-RELATED FUNCTIONS  */
+/* ========================= */
 
 // Creates a new deck and returns it.
 // The deck is comprised of 52 different cards, grouped
@@ -95,6 +97,7 @@ const createCard = cardType => {
 
 /* ========================= */
 /* PLAYER-RELATED FUNCTIONS  */
+/* ========================= */
 
 // Sums the score for a specific player.
 // Player index must be in range 0-3, where 3
@@ -247,6 +250,7 @@ const debriefing = () => {
 
 /* ========================= */
 /*      GAME ENTRY-POINT     */
+/* ========================= */
 
 // Await jQuery's availability
 $(document).ready(e => {
