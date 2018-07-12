@@ -83,7 +83,7 @@ const createCard = cardType => {
 	if(cardType != undefined) {
 	    // Deduce name of card file directly from given
 	    // cardType, then define its image source path.
-	    cardElement.find('#card-image')
+	    cardElement.find('img')
 		       .attr('src',
 			     'images/deck/' + cardType + '.png');
 	}
@@ -129,8 +129,7 @@ const grabNewCard = whichPlayer => {
     playerHands[whichPlayer].push(newCard);
     // Emplace new HTML element on player's container
     $(playerContainer).append(
-	createCard(newCard.suit.substring(0,2)
-		 + newCard.number));
+	createCard(newCard.suit.substring(0,2) + newCard.number));
 };
 
 // Performs an automated turn for an unplayable
@@ -276,7 +275,6 @@ $(document).ready(e => {
     // Now it's the player's turn
     myTurn = true;
 
-    
     // Callback for clicking the deck.
     // Lets the player grab one more card. If the player's
     // score is equal or beyond 21, then just debrief.
@@ -298,6 +296,13 @@ $(document).ready(e => {
 	// Update score
 	playerScore = playerSum(3);
 	$('#player-score').text("Score: " + playerScore);
+
+	// Change score color depending on its value
+	if(playerScore >= 21) {
+	     $('#player-score')
+		 .css("color",
+		      (playerScore == 21) ? "green" : "red");
+	}
     });
 
     // Callback for end-turn button.
